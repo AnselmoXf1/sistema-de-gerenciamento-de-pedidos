@@ -1,0 +1,113 @@
+// Schema da Base de Dados - Lanchonete Digital
+// PostgreSQL com Prisma ORM
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// 🪑 MESAS
+model Mesa {
+  id        Int       @id @default(autoincrement())
+  numero    Int       @unique
+  qrToken   String    @unique @map("qr_token") @db.VarChar(64)
+  activa    Boolean   @default(true)
+  criadoEm  DateTime  @default(now()) @map("criado_em")
+  
+  pedidos   Pedido[]
+  
+  @@map("mesas")
+}
+
+// 🍔 PRODUTOS (Cardápio)
+model Produto {
+  id          Int       @id @default(autoincrement())
+  nome        String    @db.VarChar(100)
+  descricao   String?   @db.VarChar(255)
+  preco       Decimal   @db.Decimal(10, 2)
+  categoria   String    @db.VarChar(50) // 'prato', 'bebida', 'sobremesa'
+  emoji       String?   @db.VarChar(10)
+  disponivel  Boolean   @default(true)
+  ordem       Int       @default(0)
+  imagemUrl   String?   @map("imagem_url") @db.VarChar(255)
+  criadoEm    DateTime  @default(now()) @map("criado_em")
+  
+  itensPedido ItemPedido[]
+  
+  @@map("produtos")
+}
+
+// 📋 PEDIDOS
+model Pedido {
+  id              Int       @id @default(autoincrement())
+  ticketNum       String    @unique @map("ticket_num") @db.VarChar(20)
+  mesaId          Int       @map("mesa_id")
+  status          String    @default("aguardando") @db.VarChar(20)
+  // status: aguardando | em_preparo | pronto | entregue | cancelado
+  formaPagamento  String?   @map("forma_pagamento") @db.VarChar(20)
+  // forma_pagamento: mpesa | emola | dinheiro
+  totalMt         Decimal   @map("total_mt") @db.Decimal(10, 2)
+  smsOptIn        Boolean   @default(false) @map("sms_opt_in")
+  telefoneSms     String?   @map("telefone_sms") @db.VarChar(20)
+  smsEnviado      Boolean   @default(false) @map("sms_enviado")
+  observacoes     String?   @db.Text
+  criadoEm        DateTime  @default(now()) @map("criado_em")
+  confirmadoEm    DateTime? @map("confirmado_em")
+  prontoEm        DateTime? @map("pronto_em")
+  entregueEm      DateTime? @map("entregue_em")
+  
+  mesa            Mesa      @relation(fields: [mesaId], references: [id])
+  itens           ItemPedido[]
+  
+  @@map("pedidos")
+  @@index([status])
+  @@index([criadoEm])
+}
+
+// 🛒 ITENS DO PEDIDO
+model ItemPedido {
+  id          Int       @id @default(autoincrement())
+  pedidoId    Int       @map("pedido_id")
+  produtoId   Int       @map("produto_id")
+  quantidade  Int
+  precoUnit   Decimal   @map("preco_unit") @db.Decimal(10, 2)
+  subtotal    Decimal   @db.Decimal(10, 2)
+  
+  pedido      Pedido    @relation(fields: [pedidoId], references: [id], onDelete: Cascade)
+  produto     Produto   @relation(fields: [produtoId], references: [id])
+  
+  @@map("itens_pedido")
+  @@index([pedidoId])
+}
+
+// 👤 USUÁRIOS (Dona e Funcionárias)
+model Usuario {
+  id         Int       @id @default(autoincrement())
+  nome       String    @db.VarChar(100)
+  email      String    @unique @db.VarChar(150)
+  senhaHash  String    @map("senha_hash") @db.VarChar(255)
+  role       String    @default("funcionaria") @db.VarChar(20)
+  // role: dona | funcionaria
+  activo     Boolean   @default(true)
+  criadoEm   DateTime  @default(now()) @map("criado_em")
+  
+  @@map("usuarios")
+}
+
+// 📊 LOG DE SMS (para auditoria)
+model LogSms {
+  id          Int       @id @default(autoincrement())
+  pedidoId    Int?      @map("pedido_id")
+  telefone    String    @db.VarChar(20)
+  mensagem    String    @db.Text
+  status      String    @db.VarChar(20) // enviado | falhou
+  resposta    String?   @db.Text // resposta da API
+  enviadoEm   DateTime  @default(now()) @map("enviado_em")
+  
+  @@map("log_sms")
+  @@index([pedidoId])
+}

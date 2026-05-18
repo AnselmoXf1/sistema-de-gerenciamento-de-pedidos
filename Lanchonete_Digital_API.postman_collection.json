@@ -1,0 +1,722 @@
+{
+  "info": {
+    "name": "Lanchonete Digital API - Testes Completos",
+    "description": "Coleção completa de testes para API da Lanchonete Digital (Moçambique)\n\n**Casos de Sucesso + Casos de Erro**",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "pedido_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "ticket_num",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "mesa_id",
+      "value": "1",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "🏥 Health Check",
+      "item": [
+        {
+          "name": "✅ Health Check - Sucesso",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/health",
+              "host": ["{{base_url}}"],
+              "path": ["health"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "✅ Root - Info da API",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/",
+              "host": ["{{base_url}}"],
+              "path": [""]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "🔐 Autenticação",
+      "item": [
+        {
+          "name": "✅ Login - Sucesso",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.collectionVariables.set('token', jsonData.token);",
+                  "    pm.test('Token salvo', function() {",
+                  "        pm.expect(jsonData.token).to.exist;",
+                  "    });",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@lanchonete.mz\",\n  \"senha\": \"admin123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "login"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "❌ Login - Email Inválido",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"naoexiste@teste.mz\",\n  \"senha\": \"senha123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "login"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "❌ Login - Senha Errada",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@lanchonete.mz\",\n  \"senha\": \"senhaerrada\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "login"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "❌ Login - Campos Vazios",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"\",\n  \"senha\": \"\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "login"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "🍔 Cardápio",
+      "item": [
+        {
+          "name": "✅ Listar Cardápio - Sucesso",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/cardapio",
+              "host": ["{{base_url}}"],
+              "path": ["api", "cardapio"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "✅ Buscar Produto por ID - Sucesso",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/cardapio/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "cardapio", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "❌ Buscar Produto - ID Inexistente",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/cardapio/9999",
+              "host": ["{{base_url}}"],
+              "path": ["api", "cardapio", "9999"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "📋 Pedidos (Cliente)",
+      "item": [
+        {
+          "name": "✅ Validar Mesa - Sucesso",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/pedidos/mesa/1/validar?token=OBTER_DO_SEED",
+              "host": ["{{base_url}}"],
+              "path": ["api", "pedidos", "mesa", "1", "validar"],
+              "query": [
+                {
+                  "key": "token",
+                  "value": "OBTER_DO_SEED",
+                  "description": "Executar: npm run db:seed e copiar token"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "❌ Validar Mesa - Token Inválido",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/pedidos/mesa/1/validar?token=token_invalido",
+              "host": ["{{base_url}}"],
+              "path": ["api", "pedidos", "mesa", "1", "validar"],
+              "query": [
+                {
+                  "key": "token",
+                  "value": "token_invalido"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "✅ Criar Pedido - Sucesso (M-Pesa)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.collectionVariables.set('pedido_id', jsonData.pedido.id);",
+                  "    pm.collectionVariables.set('ticket_num', jsonData.pedido.ticketNum);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"mesaId\": 1,\n  \"itens\": [\n    {\n      \"produtoId\": 1,\n      \"quantidade\": 2\n    },\n    {\n      \"produtoId\": 7,\n      \"quantidade\": 2\n    }\n  ],\n  \"formaPagamento\": \"mpesa\",\n  \"smsOptIn\": true,\n  \"telefoneSms\": \"+258843216789\",\n  \"observacoes\": \"Sem cebola, por favor\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/pedidos",
+              "host": ["{{base_url}}"],
+              "path": ["api", "pedidos"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "✅ Criar Pedido - Dinheiro (Sem SMS)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"mesaId\": 2,\n  \"itens\": [\n    {\n      \"produtoId\": 3,\n      \"quantidade\": 1\n    },\n    {\n      \"produtoId\": 10,\n      \"quantidade\": 1\n    }\n  ],\n  \"formaPagamento\": \"dinheiro\",\n  \"smsOptIn\": false\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/pedidos",
+              "host": ["{{base_url}}"],
+              "path": ["api", "pedidos"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "❌ Criar Pedido - Sem Itens",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"mesaId\": 1,\n  \"itens\": [],\n  \"formaPagamento\": \"mpesa\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/pedidos",
+              "host": ["{{base_url}}"],
+              "path": ["api", "pedidos"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "❌ Criar Pedido - Forma Pagamento Inválida",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"mesaId\": 1,\n  \"itens\": [\n    {\n      \"produtoId\": 1,\n      \"quantidade\": 1\n    }\n  ],\n  \"formaPagamento\": \"cartao\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/pedidos",
+              "host": ["{{base_url}}"],
+              "path": ["api", "pedidos"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "❌ Criar Pedido - Telefone Inválido",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"mesaId\": 1,\n  \"itens\": [\n    {\n      \"produtoId\": 1,\n      \"quantidade\": 1\n    }\n  ],\n  \"formaPagamento\": \"mpesa\",\n  \"smsOptIn\": true,\n  \"telefoneSms\": \"123456\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/pedidos",
+              "host": ["{{base_url}}"],
+              "path": ["api", "pedidos"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "✅ Buscar Pedido por Ticket - Sucesso",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/pedidos/{{ticket_num}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "pedidos", "{{ticket_num}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "❌ Buscar Pedido - Ticket Inexistente",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/pedidos/TICKET999",
+              "host": ["{{base_url}}"],
+              "path": ["api", "pedidos", "TICKET999"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "📊 Painel (Admin)",
+      "item": [
+        {
+          "name": "✅ Listar Pedidos Activos",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/painel/pedidos",
+              "host": ["{{base_url}}"],
+              "path": ["api", "painel", "pedidos"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "❌ Listar Pedidos - Sem Token",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/painel/pedidos",
+              "host": ["{{base_url}}"],
+              "path": ["api", "painel", "pedidos"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "❌ Listar Pedidos - Token Inválido",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer token_invalido_xyz"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/painel/pedidos",
+              "host": ["{{base_url}}"],
+              "path": ["api", "painel", "pedidos"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "✅ Actualizar Status - Em Preparo",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"em_preparo\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/painel/pedidos/{{pedido_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "painel", "pedidos", "{{pedido_id}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "✅ Actualizar Status - Pronto",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"pronto\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/painel/pedidos/{{pedido_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "painel", "pedidos", "{{pedido_id}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "✅ Actualizar Status - Entregue",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"entregue\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/painel/pedidos/{{pedido_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "painel", "pedidos", "{{pedido_id}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "❌ Actualizar Status - Status Inválido",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"status_invalido\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/painel/pedidos/{{pedido_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "painel", "pedidos", "{{pedido_id}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "❌ Actualizar Status - Sem Autenticação",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"pronto\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/painel/pedidos/{{pedido_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "painel", "pedidos", "{{pedido_id}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "✅ Enviar SMS Manual",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/painel/pedidos/{{pedido_id}}/notificar",
+              "host": ["{{base_url}}"],
+              "path": ["api", "painel", "pedidos", "{{pedido_id}}", "notificar"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "✅ Buscar Histórico - Hoje",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/painel/historico",
+              "host": ["{{base_url}}"],
+              "path": ["api", "painel", "historico"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "✅ Buscar Histórico - Com Filtros",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/painel/historico?status=entregue&dataInicio=2026-05-01&dataFim=2026-05-31",
+              "host": ["{{base_url}}"],
+              "path": ["api", "painel", "historico"],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "entregue"
+                },
+                {
+                  "key": "dataInicio",
+                  "value": "2026-05-01"
+                },
+                {
+                  "key": "dataFim",
+                  "value": "2026-05-31"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "✅ Relatório do Dia - Hoje",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/painel/relatorios/dia",
+              "host": ["{{base_url}}"],
+              "path": ["api", "painel", "relatorios", "dia"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "✅ Relatório do Dia - Data Específica",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/painel/relatorios/dia?data=2026-05-15",
+              "host": ["{{base_url}}"],
+              "path": ["api", "painel", "relatorios", "dia"],
+              "query": [
+                {
+                  "key": "data",
+                  "value": "2026-05-15"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "❌ Rotas Inexistentes",
+      "item": [
+        {
+          "name": "❌ 404 - Rota Não Encontrada",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/rota/inexistente",
+              "host": ["{{base_url}}"],
+              "path": ["api", "rota", "inexistente"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
