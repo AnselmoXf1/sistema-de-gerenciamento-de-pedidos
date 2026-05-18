@@ -1,0 +1,86 @@
+.cardapio-page {
+  min-height: 100vh;
+  padding-bottom: 100px;
+}
+
+.cardapio-header {
+  background: var(--primary);
+  color: var(--white);
+  padding: 24px 16px;
+  text-align: center;
+  box-shadow: var(--shadow-md);
+}
+
+.cardapio-header h1 {
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+.mesa-info {
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.categorias-tabs {
+  display: flex;
+  gap: 8px;
+  padding: 16px;
+  overflow-x: auto;
+  background: var(--white);
+  border-bottom: 1px solid var(--gray-200);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.categoria-tab {
+  padding: 8px 16px;
+  border: 2px solid var(--gray-300);
+  background: var(--white);
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+
+.categoria-tab:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.categoria-tab.activa {
+  background: var(--primary);
+  color: var(--white);
+  border-color: var(--primary);
+}
+
+.produtos-grid {
+  display: grid;
+  gap: 16px;
+  padding: 16px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--gray-500);
+}
+
+@media (max-width: 640px) {
+  .cardapio-header h1 {
+    font-size: 20px;
+  }
+  
+  .categorias-tabs {
+    padding: 12px;
+  }
+  
+  .produtos-grid {
+    padding: 12px;
+    gap: 12px;
+  }
+}

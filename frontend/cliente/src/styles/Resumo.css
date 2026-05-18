@@ -1,0 +1,261 @@
+.resumo-page {
+  min-height: 100vh;
+  padding-bottom: 40px;
+}
+
+.resumo-header {
+  background: var(--primary);
+  color: var(--white);
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: var(--shadow-md);
+}
+
+.btn-voltar {
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--white);
+  border: none;
+  padding: 8px 16px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.resumo-header h1 {
+  flex: 1;
+  font-size: 20px;
+}
+
+.mesa-badge {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+}
+
+.itens-card h2 {
+  font-size: 18px;
+  margin-bottom: 16px;
+  color: var(--gray-900);
+}
+
+.item-resumo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.item-resumo:last-of-type {
+  border-bottom: none;
+}
+
+.item-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.item-emoji {
+  font-size: 32px;
+}
+
+.item-nome {
+  font-weight: 600;
+  color: var(--gray-900);
+  margin-bottom: 4px;
+}
+
+.item-preco {
+  font-size: 14px;
+  color: var(--gray-600);
+}
+
+.item-acoes {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.quantidade-controls-small {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.quantidade-controls-small button {
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: var(--gray-200);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.quantidade-controls-small span {
+  min-width: 20px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.item-subtotal {
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.total-resumo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 16px;
+  margin-top: 16px;
+  border-top: 2px solid var(--gray-300);
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.total-valor {
+  color: var(--primary);
+}
+
+.pagamento-opcoes {
+  display: grid;
+  gap: 12px;
+  margin: 16px 0;
+}
+
+.pagamento-opcao {
+  display: block;
+  cursor: pointer;
+}
+
+.pagamento-opcao input[type="radio"] {
+  display: none;
+}
+
+.opcao-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  border: 2px solid var(--gray-300);
+  border-radius: var(--radius);
+  background: var(--white);
+  transition: all 0.2s;
+}
+
+.pagamento-opcao:hover .opcao-content {
+  border-color: var(--primary);
+}
+
+.pagamento-opcao.selected .opcao-content {
+  border-color: var(--primary);
+  background: rgba(8, 80, 65, 0.05);
+}
+
+.opcao-icon {
+  font-size: 32px;
+}
+
+.pagamento-nota {
+  font-size: 14px;
+  color: var(--gray-600);
+  margin-top: 8px;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  padding: 12px 0;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.telefone-input {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--gray-200);
+}
+
+.telefone-input label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: var(--gray-700);
+}
+
+.telefone-input input {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid var(--gray-300);
+  border-radius: var(--radius);
+  font-size: 16px;
+}
+
+.telefone-input input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.telefone-input small {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--gray-500);
+}
+
+textarea {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid var(--gray-300);
+  border-radius: var(--radius);
+  font-size: 16px;
+  font-family: inherit;
+  resize: vertical;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+form .card {
+  margin-bottom: 16px;
+}
+
+form .card h2 {
+  font-size: 18px;
+  margin-bottom: 12px;
+  color: var(--gray-900);
+}
+
+@media (max-width: 640px) {
+  .item-emoji {
+    font-size: 24px;
+  }
+  
+  .item-nome {
+    font-size: 14px;
+  }
+  
+  .item-preco {
+    font-size: 12px;
+  }
+  
+  .total-resumo {
+    font-size: 18px;
+  }
+}

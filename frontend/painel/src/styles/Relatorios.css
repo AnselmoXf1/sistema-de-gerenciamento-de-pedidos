@@ -1,0 +1,208 @@
+.relatorios-page {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.filtro-data-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  box-shadow: var(--shadow);
+  margin-bottom: 24px;
+}
+
+.filtro-data-form {
+  display: flex;
+  align-items: end;
+  gap: 16px;
+}
+
+.filtro-data-form label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gray-700);
+  margin-bottom: 8px;
+  display: block;
+}
+
+.filtro-data-form input {
+  padding: 10px 12px;
+  border: 2px solid var(--gray-300);
+  border-radius: var(--radius);
+  font-size: 14px;
+  transition: border-color 0.2s;
+}
+
+.filtro-data-form input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition: transform 0.2s;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+}
+
+.stat-card.highlight {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+  color: var(--white);
+}
+
+.stat-icon {
+  font-size: 48px;
+}
+
+.stat-card.highlight .stat-icon {
+  filter: brightness(1.2);
+}
+
+.stat-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stat-label {
+  font-size: 13px;
+  color: var(--gray-600);
+}
+
+.stat-card.highlight .stat-label {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.stat-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--gray-900);
+}
+
+.stat-card.highlight .stat-value {
+  color: var(--white);
+}
+
+.pagamentos-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  box-shadow: var(--shadow);
+}
+
+.pagamentos-card h2 {
+  font-size: 20px;
+  color: var(--gray-900);
+  margin-bottom: 20px;
+}
+
+.pagamentos-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.pagamento-item {
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background: var(--gray-50);
+  border-radius: var(--radius);
+}
+
+.pagamento-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pagamento-icon {
+  font-size: 24px;
+}
+
+.pagamento-nome {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gray-900);
+}
+
+.pagamento-valor {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--gray-900);
+}
+
+.pagamento-barra {
+  flex: 1;
+  height: 8px;
+  background: var(--gray-200);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.pagamento-progresso {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.5s ease-out;
+}
+
+.pagamento-percentagem {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gray-600);
+  min-width: 50px;
+  text-align: right;
+}
+
+@media (max-width: 768px) {
+  .filtro-data-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .stat-card {
+    padding: 20px;
+  }
+  
+  .stat-icon {
+    font-size: 40px;
+  }
+  
+  .stat-value {
+    font-size: 24px;
+  }
+  
+  .pagamento-item {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  
+  .pagamento-barra {
+    order: 3;
+  }
+  
+  .pagamento-percentagem {
+    order: 4;
+    text-align: left;
+  }
+}

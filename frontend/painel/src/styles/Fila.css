@@ -1,0 +1,92 @@
+.fila-page {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.fila-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.header-info h1 {
+  font-size: 28px;
+  color: var(--gray-900);
+  margin-bottom: 4px;
+}
+
+.ultima-atualizacao {
+  font-size: 13px;
+  color: var(--gray-500);
+}
+
+.filtros-tabs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding: 16px;
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  overflow-x: auto;
+}
+
+.filtro-tab {
+  padding: 10px 20px;
+  border: 2px solid var(--gray-300);
+  background: var(--white);
+  color: var(--gray-700);
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.filtro-tab:hover {
+  border-color: var(--primary);
+  background: var(--gray-50);
+}
+
+.filtro-tab.activo {
+  background: var(--primary);
+  color: var(--white);
+  border-color: var(--primary);
+}
+
+.pedidos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 20px;
+}
+
+@media (max-width: 768px) {
+  .fila-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .header-info h1 {
+    font-size: 24px;
+  }
+  
+  .filtros-tabs {
+    padding: 12px;
+    gap: 8px;
+  }
+  
+  .filtro-tab {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+  
+  .pedidos-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}

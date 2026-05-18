@@ -1,0 +1,121 @@
+.confirmacao-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+}
+
+.confirmacao-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 40px;
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+  box-shadow: var(--shadow-lg);
+  animation: fadeIn 0.5s ease-out;
+}
+
+.sucesso-icon {
+  font-size: 80px;
+  margin-bottom: 20px;
+  animation: bounce 0.6s ease-out;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+.confirmacao-card h1 {
+  font-size: 28px;
+  color: var(--gray-900);
+  margin-bottom: 24px;
+}
+
+.ticket-display {
+  background: var(--gray-50);
+  border: 2px dashed var(--primary);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin: 24px 0;
+}
+
+.ticket-label {
+  font-size: 14px;
+  color: var(--gray-600);
+  margin-bottom: 8px;
+}
+
+.ticket-numero {
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--primary);
+  font-family: 'Courier New', monospace;
+}
+
+.instrucoes {
+  text-align: left;
+  margin: 24px 0;
+  padding: 20px;
+  background: var(--gray-50);
+  border-radius: var(--radius);
+}
+
+.instrucoes h2 {
+  font-size: 18px;
+  margin-bottom: 12px;
+  color: var(--gray-900);
+}
+
+.instrucoes ol {
+  margin-left: 20px;
+}
+
+.instrucoes li {
+  margin: 8px 0;
+  color: var(--gray-700);
+  line-height: 1.6;
+}
+
+.info-box {
+  background: #fff3cd;
+  border-left: 4px solid var(--warning);
+  padding: 16px;
+  border-radius: var(--radius);
+  margin: 24px 0;
+  text-align: left;
+}
+
+.info-box p {
+  margin: 0;
+  color: var(--gray-800);
+  font-size: 14px;
+}
+
+.acoes {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+@media (max-width: 640px) {
+  .confirmacao-card {
+    padding: 24px;
+  }
+  
+  .confirmacao-card h1 {
+    font-size: 24px;
+  }
+  
+  .sucesso-icon {
+    font-size: 60px;
+  }
+  
+  .ticket-numero {
+    font-size: 28px;
+  }
+}

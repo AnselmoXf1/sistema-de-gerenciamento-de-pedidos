@@ -1,0 +1,175 @@
+.pedido-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  box-shadow: var(--shadow);
+  border-left: 4px solid var(--primary);
+  transition: transform 0.2s, box-shadow 0.2s;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.pedido-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.pedido-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.pedido-ticket {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ticket-emoji {
+  font-size: 32px;
+}
+
+.pedido-ticket h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin-bottom: 4px;
+}
+
+.pedido-status {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.pedido-mesa {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.mesa-badge {
+  background: var(--primary);
+  color: var(--white);
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.pedido-tempo {
+  font-size: 12px;
+  color: var(--gray-500);
+}
+
+.pedido-itens {
+  margin: 16px 0;
+}
+
+.item-linha {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--gray-100);
+}
+
+.item-linha:last-child {
+  border-bottom: none;
+}
+
+.item-emoji {
+  font-size: 24px;
+}
+
+.item-qtd {
+  font-weight: 700;
+  color: var(--primary);
+  min-width: 30px;
+}
+
+.item-nome {
+  flex: 1;
+  font-size: 14px;
+  color: var(--gray-700);
+}
+
+.item-preco {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gray-900);
+}
+
+.pedido-footer {
+  margin: 16px 0;
+  padding: 16px 0;
+  border-top: 1px solid var(--gray-200);
+}
+
+.pedido-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+}
+
+.info-label {
+  color: var(--gray-600);
+}
+
+.info-valor {
+  font-weight: 600;
+  color: var(--gray-900);
+}
+
+.info-valor.total {
+  font-size: 18px;
+  color: var(--primary);
+}
+
+.pedido-observacoes {
+  margin-top: 12px;
+  padding: 12px;
+  background: var(--gray-50);
+  border-radius: var(--radius);
+  font-size: 13px;
+  color: var(--gray-700);
+}
+
+.pedido-observacoes strong {
+  color: var(--gray-900);
+}
+
+.pedido-acoes {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+@media (max-width: 480px) {
+  .pedido-card {
+    padding: 16px;
+  }
+  
+  .ticket-emoji {
+    font-size: 24px;
+  }
+  
+  .pedido-ticket h3 {
+    font-size: 18px;
+  }
+  
+  .item-emoji {
+    font-size: 20px;
+  }
+}
