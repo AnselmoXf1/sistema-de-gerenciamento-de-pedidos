@@ -105,7 +105,7 @@ Certifique-se que estes arquivos existem:
 ```
 NODE_ENV = production
 PORT = 3000
-DATABASE_URL = [Cole a Internal Database URL do passo 2.2]
+DATABASE_URL = postgresql://txopela_user:QbElw4O9jqyL7V7qql8kKWwF0qZ0F75h@dpg-d81napl0lvsc73fme010-a/txopela_tour
 JWT_SECRET = [Gere uma string aleatória segura]
 BASE_URL = https://lanchonete-cliente.netlify.app
 AFRICASTALKING_USERNAME = [Seu username]

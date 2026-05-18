@@ -2,7 +2,7 @@ services:
   # Backend API
   - type: web
     name: lanchonete-api
-    env: node
+    runtime: node
     region: oregon
     plan: free
     buildCommand: cd backend && npm install && npx prisma generate
