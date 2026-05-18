@@ -16,14 +16,8 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     sourcemap: false,
-    // Optimizações para 3G
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true, // Remove console.logs em produção
-        drop_debugger: true
-      }
-    },
+    // Usar esbuild em vez de terser (mais rápido e sem dependência extra)
+    minify: 'esbuild',
     rollupOptions: {
       output: {
         manualChunks: {
